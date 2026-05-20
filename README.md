@@ -17,16 +17,15 @@ Esta aplicación está configurada para desplegarse como un solo paquete, donde 
 
 ### Pasos para el Despliegue:
 
-1. **Instalar todas las dependencias**:
-   Desde la raíz del proyecto, ejecuta:
-   ```bash
-   npm run install-all
-   ```
-
-2. **Construir el Frontend**:
-   Genera la carpeta `dist` en el frontend:
+1. **Comando de Construcción (Build Command)** en Render/Vercel:
    ```bash
    npm run build
+   ```
+   *(Este comando instalará todas las dependencias y compilará el frontend automáticamente)*.
+
+2. **Comando de Inicio (Start Command)**:
+   ```bash
+   npm start
    ```
 
 3. **Configurar Variables de Entorno**:
