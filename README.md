@@ -11,6 +11,34 @@ Una aplicación fullstack moderna y elegante para visualizar usuarios en un mapa
 - **UI/UX:** Diseño minimalista, tarjetas suaves, animaciones con Framer Motion y responsive.
 - **Geolocalización:** Seguimiento automático de la ubicación del usuario.
 
+## 🚀 Despliegue (Monorepositorio)
+
+Esta aplicación está configurada para desplegarse como un solo paquete, donde el backend sirve los archivos estáticos del frontend.
+
+### Pasos para el Despliegue:
+
+1. **Instalar todas las dependencias**:
+   Desde la raíz del proyecto, ejecuta:
+   ```bash
+   npm run install-all
+   ```
+
+2. **Construir el Frontend**:
+   Genera la carpeta `dist` en el frontend:
+   ```bash
+   npm run build
+   ```
+
+3. **Configurar Variables de Entorno**:
+   Asegúrate de que en el entorno de producción la variable `NODE_ENV` esté establecida en `production`.
+
+4. **Iniciar la Aplicación**:
+   El servidor Express servirá automáticamente el frontend:
+   ```bash
+   npm start
+   ```
+
+---
 ## 📁 Estructura del Proyecto
 
 ```text
