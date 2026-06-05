@@ -102,7 +102,7 @@ const Chat = ({ messages, onSendMessage, currentUserId }) => {
                       </span>
                     )}
                     <span className="text-[9px] text-slate-400">
-                      {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-刻', minute: '2-digit' })}
+                      {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
                   <div 
