@@ -51,9 +51,9 @@ const Chat = ({ messages, onSendMessage, currentUserId }) => {
         opacity: 1, 
         y: 0, 
         scale: 1,
-        height: isMinimized ? '60px' : '450px'
+        height: isMinimized ? '60px' : (window.innerWidth < 768 ? '400px' : '450px')
       }}
-      className="fixed bottom-6 right-6 z-[1000] w-80 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 flex flex-col overflow-hidden"
+      className="fixed bottom-4 right-4 left-4 md:left-auto md:w-80 z-[1000] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 flex flex-col overflow-hidden"
     >
       {/* Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-blue-600 text-white">

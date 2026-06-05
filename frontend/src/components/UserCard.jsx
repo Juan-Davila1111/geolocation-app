@@ -5,11 +5,11 @@ import { Users, Wifi, User } from 'lucide-react';
 const UserCard = ({ currentUser, onlineCount }) => {
   return (
     <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="fixed top-6 left-6 z-[1000] w-64 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-4"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="fixed top-4 left-4 right-4 md:right-auto md:w-64 z-[1000] bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-3 md:p-4"
     >
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-3 md:mb-4">
         <div 
           className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner"
           style={{ backgroundColor: currentUser?.color || '#3b82f6' }}
