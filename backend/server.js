@@ -74,6 +74,24 @@ io.on('connection', (socket) => {
         }
     });
 
+    // Enviar mensaje de chat
+    socket.on('send-message', (messageData) => {
+        const user = activeUsers.get(socket.id);
+        if (user) {
+            const newMessage = {
+                id: Date.now() + Math.random().toString(36).substr(2, 9),
+                senderId: socket.id,
+                senderName: user.name,
+                senderColor: user.color,
+                text: messageData.text,
+                timestamp: new Date()
+            };
+            
+            // Emitir a todos (incluyendo al remitente)
+            io.emit('new-message', newMessage);
+        }
+    });
+
     // Desconexión
     socket.on('disconnect', () => {
         const user = activeUsers.get(socket.id);
