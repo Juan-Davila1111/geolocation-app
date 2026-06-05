@@ -3,6 +3,7 @@ import { socket } from './socket';
 import EntryScreen from './components/EntryScreen';
 import Map from './components/Map';
 import UserCard from './components/UserCard';
+import UserList from './components/UserList';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const [targetCenter, setTargetCenter] = useState(null);
 
   // Handle joining the map
   const handleJoin = (name) => {
@@ -26,6 +28,7 @@ function App() {
           
           socket.emit('join-map', { name, coords });
           setIsJoined(true);
+          setTargetCenter(coords);
           
           // Start watching position
           startWatchingLocation();
@@ -60,6 +63,11 @@ function App() {
       );
     }
   }, []);
+
+  const handleUserClick = (coords) => {
+    setTargetCenter(null); // Reset to trigger useEffect in ChangeView if same coords
+    setTimeout(() => setTargetCenter(coords), 10);
+  };
 
   useEffect(() => {
     socket.on('current-users', (usersList) => {
@@ -113,6 +121,11 @@ function App() {
               currentUser={currentUser} 
               onlineCount={users.length} 
             />
+
+            <UserList 
+              users={users} 
+              onUserClick={handleUserClick} 
+            />
             
             {error && (
               <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[1000] bg-red-50 text-red-600 px-6 py-3 rounded-2xl shadow-lg border border-red-100 text-sm font-medium">
@@ -122,7 +135,7 @@ function App() {
 
             <Map 
               users={users} 
-              currentUserCoords={currentUser?.coords} 
+              targetCenter={targetCenter} 
             />
           </motion.div>
         )}
