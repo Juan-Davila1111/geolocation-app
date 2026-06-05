@@ -4,6 +4,7 @@ import EntryScreen from './components/EntryScreen';
 import Map from './components/Map';
 import UserCard from './components/UserCard';
 import UserList from './components/UserList';
+import Chat from './components/Chat';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [targetCenter, setTargetCenter] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   // Handle joining the map
   const handleJoin = (name) => {
@@ -69,6 +71,10 @@ function App() {
     setTimeout(() => setTargetCenter(coords), 10);
   };
 
+  const handleSendMessage = (text) => {
+    socket.emit('send-message', { text });
+  };
+
   useEffect(() => {
     socket.on('current-users', (usersList) => {
       setUsers(usersList);
@@ -97,11 +103,16 @@ function App() {
       setUsers(prev => prev.filter(user => user.id !== id));
     });
 
+    socket.on('new-message', (message) => {
+      setMessages(prev => [...prev, message]);
+    });
+
     return () => {
       socket.off('current-users');
       socket.off('user-joined');
       socket.off('location-updated');
       socket.off('user-left');
+      socket.off('new-message');
       socket.disconnect();
     };
   }, []);
@@ -125,6 +136,12 @@ function App() {
             <UserList 
               users={users} 
               onUserClick={handleUserClick} 
+            />
+
+            <Chat 
+              messages={messages} 
+              onSendMessage={handleSendMessage} 
+              currentUserId={socket.id} 
             />
             
             {error && (
